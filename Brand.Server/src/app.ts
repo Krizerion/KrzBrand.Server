@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
+import * as fs from 'fs';
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -30,10 +31,10 @@ class App {
      * API endpoints */
     let router = express.Router();
     // placeholder route handler
-    router.get('/', (req, res, next) => {
-      res.json({
-        message: 'Hello World!'
-      });
+    router.get('/getAll', (req, res, next) => {
+      var usersFilePath = path.join(__dirname, 'data.1.json');
+      var readable = fs.createReadStream(usersFilePath);
+      readable.pipe(res);
     });
     this.express.use('/', router);
   }
