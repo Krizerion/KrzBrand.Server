@@ -1,7 +1,7 @@
 export class Product {
     objectId: string;
-    price: number;
-    date: Date;
+    price: string;
+    date: string;
     type: string;
     name: string;
     brand: string;

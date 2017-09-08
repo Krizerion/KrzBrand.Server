@@ -13,6 +13,10 @@ export class DashboardComponent implements OnInit {
   pageTitle: string;
   allProducts: Product[];
   countries: Card[] = [];
+  detailsShown: boolean = false;
+  details: any = {
+    single: []
+  }
 
   constructor(
     private productDataService: ProductService,
@@ -24,6 +28,7 @@ export class DashboardComponent implements OnInit {
     this.allProducts = [];
     this.allProducts = this.globalDataService.allProducts;
     this.getCountriesGroups();
+    this.prepareChartData();
     this.pageTitle = this.allProducts.length + ' PRODUCTS FOUND FOR ALL COUNTRIES';
   }
 
@@ -53,9 +58,26 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  open(event: any, country: Card): void {
+  prepareChartData(): void {
+    this.countries.forEach((country: Card) => {
+      this.details.single.push({
+        "name": country.name,
+        "value": country.count
+      })
+    });
+  }
+
+  openFromCard(event: any, country: Card): void {
     if (country.type === 'country') {
       this.router.navigateByUrl('/dashboard/' + country.name.split(' ').join(''));
     }
   };
+
+  openFromChart(event: any) {
+    this.router.navigateByUrl('/dashboard/' + event.name.split(' ').join(''));
+  }
+
+  dashboardSummary(): void {
+    this.detailsShown = !this.detailsShown;
+  }
 }

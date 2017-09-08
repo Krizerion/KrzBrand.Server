@@ -15,6 +15,10 @@ export class DashboardBrandComponent implements OnInit {
   pageTitle: string;
   productsForBrand: Product[];
   types: Card[] = [];
+  detailsShown: boolean = false;
+  details: any = {
+    single: []
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +35,7 @@ export class DashboardBrandComponent implements OnInit {
         .filter(product => product.brand === this.brand && product.country === this.country);
     this.pageTitle = this.productsForBrand.length + " PRODUCTS FOUND FOR " + this.brand.toUpperCase() + " IN " + this.country.toUpperCase();
     this.getBrandsGroups();
+    this.prepareChartData();
   }
 
   getBrandsGroups(): void {
@@ -59,7 +64,16 @@ export class DashboardBrandComponent implements OnInit {
     });
   }
 
-  open(event: any, type: Card): void {
+  prepareChartData(): void {
+    this.types.forEach((type: Card) => {
+      this.details.single.push({
+        "name": type.name,
+        "value": type.count
+      })
+    });
+  }
+
+  openFromCard(event: any, type: Card): void {
     if (type.type === 'type') {
       this.router.navigateByUrl(
         '/dashboard/' +
@@ -68,4 +82,16 @@ export class DashboardBrandComponent implements OnInit {
         type.name.split(' ').join(''));
     }
   };
+
+  dashboardSummary(): void {
+    this.detailsShown = !this.detailsShown;
+  }
+
+  openFromChart(event: any) {
+    this.router.navigateByUrl(
+      '/dashboard/' +
+      this.country + '/' +
+      this.brand + '/' +
+      event.name.split(' ').join(''));
+  }
 }

@@ -5,13 +5,22 @@
         </div>
         <div class="row krz-summary-row">
             <div class="text-center">
-                <button class="btn btn-large btn-primary">See Summary</button>
+                <button class="btn btn-large btn-primary" (click)="dashboardSummary()">Toggle Summary</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="!detailsShown">
             <div *ngFor="let type of types" class="col-md-4">
-                <krz-brand-dashboard-card [data]="type" (click)="open($event, type)"></krz-brand-dashboard-card>
+                <krz-brand-dashboard-card [data]="type" (click)="openFromCard($event, type)"></krz-brand-dashboard-card>
             </div> 
+        </div>
+        <div class="row krz-details-page" *ngIf="detailsShown">
+            <ngx-charts-pie-chart
+                [results]="details.single"
+                [legend]="true"
+                [explodeSlices]="false"
+                [labels]="true"
+                (select)="openFromChart($event)">
+            </ngx-charts-pie-chart>
         </div>
     </div>
 </div>

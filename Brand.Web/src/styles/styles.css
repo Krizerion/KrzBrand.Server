@@ -28,6 +28,17 @@ button {
   cursor: pointer;
 }
 
+.krz-nav {
+  background-color: black;
+  padding: 5px;
+  margin: 5px 5px 25px 5px;
+  border-radius: 10px;
+}
+
+#krz-landing-page {
+  padding: 20px;
+}
+
 .krz-page {
   position:relative;
   height: 100%;
@@ -53,4 +64,8 @@ krz-brand-details select {
 
 .krz-summary-row > div {
   width: 100%
+}
+
+.krz-details-page {
+  min-height: 500px;
 }

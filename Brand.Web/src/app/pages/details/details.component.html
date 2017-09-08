@@ -22,10 +22,29 @@
         </div>
         <div class="row krz-summary-row">
             <div class="text-center">
-                <button class="btn btn-large btn-primary">See Summary</button>
+                <button class="btn btn-large btn-primary" (click)="summary()">Toggle Summary</button>
             </div>
         </div>
-        <div class="row table-responsive">
+        <div class="row krz-details-page" *ngIf="detailsShown">
+                <ngx-charts-bar-horizontal
+                class="chart-container"
+                [results]="details.single"
+                [xAxis]="true"
+                [yAxis]="true"
+                [legend]="true"
+                [legendTitle]="'Legend'"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [tooltipDisabled]="false"
+                [xAxisLabel]="'Total Sales'"
+                [yAxisLabel]="'Year'"
+                [showGridLines]="true"
+                [barPadding]="4"
+                [roundDomains]="false"
+                [roundEdges]="true">
+              </ngx-charts-bar-horizontal>
+        </div>
+        <div class="row table-responsive" *ngIf="!detailsShown">
             <table class="table table-striped table-hover ">
                 <thead>
                     <tr>
